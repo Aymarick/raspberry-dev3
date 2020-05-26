@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from led import Led
 import RPi.GPIO as GPIO
+from threading import Thread
 app = Flask(__name__)
 
 #Utilisation d'une norme de nommage pour les broches
@@ -33,8 +34,9 @@ def off(color):
 @app.route('/blink/<color>')
 def blink(color):
     if color == "red":
-        redLed.blink(10, 0.05)
+        thread = Thread(target=redLed.blink, args=(100, 0.05, ))
+        thread.start()
     elif color == "green":
-        greenLed.blink(10, 0.05)
+        greenLed.blink(100, 0.05)
     return redirect(url_for('home'))
 
