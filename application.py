@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from led import Led
 import RPi.GPIO as GPIO
 from threading import Thread
@@ -25,18 +25,22 @@ def on(color):
 
 @app.route('/off/<color>')
 def off(color):
+
     if color == "red":
         redLed.off()
     elif color == "green":
         greenLed.off()
     return redirect(url_for('home'))
 
-@app.route('/blink/<color>')
-def blink(color):
+@app.route('/blink', methods=['POST'])
+def blink():
+    color = request.form['color']
+    numBlink = int(request.form['numBlink'])
+    sleepTime = float(request.form['sleepTime'])
     if color == "red":
-        thread = Thread(target=redLed.blink, args=(100, 0.05, ))
+        thread = Thread(target=redLed.blink, args=(numBlink, sleepTime, ))
         thread.start()
     elif color == "green":
-        greenLed.blink(100, 0.05)
+        greenLed.blink(numBlink, sleepTime)
     return redirect(url_for('home'))
 
