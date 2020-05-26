@@ -25,11 +25,12 @@ def on(color):
 
 @app.route('/off/<color>')
 def off(color):
-
     if color == "red":
         redLed.off()
+        redLed.cancel()
     elif color == "green":
         greenLed.off()
+        greenLed.cancel()
     return redirect(url_for('home'))
 
 @app.route('/blink', methods=['POST'])
@@ -37,10 +38,12 @@ def blink():
     color = request.form['color']
     numBlink = int(request.form['numBlink'])
     sleepTime = float(request.form['sleepTime'])
+    led = None
     if color == "red":
-        thread = Thread(target=redLed.blink, args=(numBlink, sleepTime, ))
-        thread.start()
+        led = redLed
     elif color == "green":
-        greenLed.blink(numBlink, sleepTime)
+        led = greenLed
+    thread = Thread(target=led.blink, args=(numBlink, sleepTime, ))
+    thread.start()
     return redirect(url_for('home'))
 
