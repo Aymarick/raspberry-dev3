@@ -30,3 +30,11 @@ def off(color):
         greenLed.off()
     return redirect(url_for('home'))
 
+@app.route('/blink/<color>')
+def blink(color):
+    if color == "red":
+        redLed.blink(10, 0.05)
+    elif color == "green":
+        greenLed.blink(10, 0.05)
+    return redirect(url_for('home'))
+
