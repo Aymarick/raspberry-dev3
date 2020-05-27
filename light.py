@@ -1,11 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 
-# Initialisation des GPIOs
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
 class LightSensor: 
     def __init__(self, broche):
         # Numéro de la broche que nous allons utiliser pour lire 
@@ -22,10 +17,3 @@ class LightSensor:
         while (GPIO.input(self.broche) == GPIO.LOW):
             lightCount += 1
         return lightCount
-
-lightSensor = LightSensor(27)
-
-# Boucle infini jusqu'à CTRL-C
-while True:
-    print(lightSensor.read_light())
-    time.sleep(1)

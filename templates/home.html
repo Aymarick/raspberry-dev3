@@ -13,6 +13,9 @@
   <div class="row">
     La température est de <span id="temperature">{{ temp }}</span>°C
   </div>
+  <div class="row" id="light">
+
+  </div>
   <div class="row">
     <div class="col-sm">
       <a href="/on/red" class="btn btn-primary">Allumer la LED Rouge</a>
@@ -72,6 +75,9 @@
     $.get('/temp', function(result){
       console.log('Got temp : '+result);
       $('#temperature').text(result);
+    })
+    $.get('/light', function(data) {
+      $('#light').text(data);
     })
   }, 1000)
 </script>
