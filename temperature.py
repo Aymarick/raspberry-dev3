@@ -9,10 +9,6 @@ import RPi.GPIO as GPIO
 os.system('modprobe w1-gpio')  # Allume le module 1wire
 os.system('modprobe w1-therm')  # Allume le module Temperature
 
-#Utilisation d'une norme de nommage pour les broches
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
 class TemperatureSensor:
 
     def __init__(self, sensor_name):
@@ -42,19 +38,3 @@ class TemperatureSensor:
             temp_c = float(temp_string) / 1000.0
             return temp_c
         
-
-tempSensor = TemperatureSensor('28-01131a4f0da1')
-redLed = Led(14)
-greenLed = Led(15)
-
-while True:
-    temp = tempSensor.read_temp()
-    if temp > 28:
-        redLed.on()
-        greenLed.off()
-        print("Chaud : "+str(temp))
-    else:
-        redLed.off()
-        greenLed.on()
-        print("Froid : "+str(temp))
-    time.sleep(1)

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from led import Led
+from temperature import TemperatureSensor
 import RPi.GPIO as GPIO
 from threading import Thread
 app = Flask(__name__)
@@ -11,9 +12,12 @@ GPIO.setwarnings(False)
 redLed = Led(14)
 greenLed = Led(15)
 
+tempSensor = TemperatureSensor('28-01131a4f0da1')
+
 @app.route('/')
 def home():
-    return render_template('home.html')
+    temp = tempSensor.read_temp()
+    return render_template('home.html', temp=temp)
 
 @app.route('/on/<color>')
 def on(color):
