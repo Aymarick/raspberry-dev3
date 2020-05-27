@@ -19,6 +19,11 @@ def home():
     temp = tempSensor.read_temp()
     return render_template('home.html', temp=temp)
 
+@app.route('/temp')
+def temp():
+    temp = tempSensor.read_temp()
+    return str(temp)
+
 @app.route('/on/<color>')
 def on(color):
     if color == "red":
