@@ -37,3 +37,11 @@ alphabetToMorse = {
     '8':'---..',
     '9':'----.',
 }
+
+def convertStrToMorse(text):
+    t = text.upper()
+    result = ''
+    for char in t:
+        if char in alphabetToMorse:
+            result += alphabetToMorse[char] + ' '
+    return result
