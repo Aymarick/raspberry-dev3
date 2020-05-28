@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_socketio import SocketIO, send, emit
 from led import Led
+from buzzer import Buzzer
 from temperature import TemperatureSensor
 from light import LightSensor
 from movement import MovementSensor
@@ -14,6 +15,7 @@ GPIO.setwarnings(False)
 
 redLed = Led(14)
 greenLed = Led(15)
+buzzer = Buzzer(18)
 
 tempSensor = TemperatureSensor('28-01131a4f0da1')
 
@@ -36,6 +38,11 @@ def light():
         return 'Il fait jour'
     else:
         return 'Il fait nuit'
+
+@app.route('/beep')
+def beep():
+    buzzer.beep(0.5)
+    return redirect(url_for('home'))
 
 @app.route('/on/<color>')
 def on(color):
@@ -82,4 +89,4 @@ def ready():
     socketio.emit('alert', 'Prêt', Broadcast=True)
 
 movement = MovementSensor(17, detect, ready)
-movement.startDetection()
+# movement.startDetection()
