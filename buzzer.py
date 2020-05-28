@@ -36,10 +36,13 @@ class Buzzer:
             time.sleep(sleepTime)
             i += 1
 
+    def beep(self, beepTime):
+        self.on()
+        time.sleep(beepTime)
+        self.off()
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 buzzer = Buzzer(18)
-buzzer.on()
-time.sleep(1)
-buzzer.off()
+buzzer.beep(0.5)
