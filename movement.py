@@ -46,22 +46,3 @@ class MovementSensor:
     def stopDetection(self):
         self.running = False
 
-
-redLed = Led(14)
-greenLed = Led(15)
-
-def detect():
-    redLed.on()
-    greenLed.off()
-    print("Mouvement détecté")
-
-def ready():
-    redLed.off()
-    greenLed.on()
-    print("Prêt")
-
-movement = MovementSensor(17, detect, ready)
-movement.startDetection()
-time.sleep(2)
-movement.stopDetection()
-
