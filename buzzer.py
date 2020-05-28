@@ -40,3 +40,16 @@ class Buzzer:
         self.on()
         time.sleep(beepTime)
         self.off()
+
+    # beep selon un code morse de type '.-'
+    # Bonjour = -... --- -. .--- --- ..- .-.
+    def morse(self, code): 
+        pulse = 0.3
+        for character in code:
+            if character == '.':
+                self.beep(pulse)
+            elif character == '-':
+                self.beep(pulse * 3)
+            else:
+                time.sleep(pulse * 2)
+            time.sleep(pulse)

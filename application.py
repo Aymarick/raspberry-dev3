@@ -90,3 +90,4 @@ def ready():
 
 movement = MovementSensor(17, detect, ready)
 # movement.startDetection()
+buzzer.morse('-... --- -. .--- --- ..- .-.')
